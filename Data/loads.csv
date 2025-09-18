@@ -1,0 +1,6 @@
+load_id,origin,destination,pickup_datetime,delivery_datetime,equipment_type,loadboard_rate,notes,weight,commodity_type,num_of_pieces,miles,dimensions
+1,Dallas,Chicago,2025-09-20 08:00,2025-09-22 18:00,Van,1500,Handle with care,20000,Furniture,10,800,10x5x6
+2,Atlanta,New York,2025-09-21 09:00,2025-09-24 20:00,Flatbed,2000,Fragile items,10000,Electronics,5,900,12x6x6
+3,Los Angeles,Houston,2025-09-22 07:00,2025-09-25 17:00,Reefer,1800,Keep frozen,15000,Food,20,1400,8x4x5
+4,Miami,Orlando,2025-09-23 10:00,2025-09-23 16:00,Van,800,Small load,5000,Clothing,50,230,5x4x4
+5,Seattle,Denver,2025-09-24 12:00,2025-09-26 19:00,Flatbed,2500,Oversized load,30000,Steel,15,1300,15x8x8
