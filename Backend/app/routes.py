@@ -16,15 +16,13 @@ router = APIRouter()
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 CSV_FILE = os.path.join(BASE_DIR, "..", "..", "Data", "loads.csv")
 
-def search_loads(origin: Optional[str] = None, destination: Optional[str] = None):
+def search_loads(origin: Optional[str] = None):
     # Read CSV into a DataFrame
     df = pd.read_csv(CSV_FILE)
 
     # Filter based on origin/destination if provided
     if origin:
         df = df[df['origin'].str.lower() == origin.lower()]
-    if destination:
-        df = df[df['destination'].str.lower() == destination.lower()]
 
     # Convert filtered DataFrame to list of dicts
     results = df.to_dict(orient='records')
@@ -53,8 +51,8 @@ def negotiate_rate(listed_rate: float, counter_offers: List[float]) -> float:
     return agreed_rate
 
 @router.get("/search_loads")
-def get_loads(origin: Optional[str] = None, destination: Optional[str] = None):
-    loads = search_loads(origin, destination)
+def get_loads(origin: Optional[str] = None):
+    loads = search_loads(origin)
     if not loads:
         raise HTTPException(status_code=404, detail="No loads found")
     return {"loads": loads}
