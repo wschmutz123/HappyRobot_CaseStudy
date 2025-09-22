@@ -1,8 +1,8 @@
-## HappyRobot_CaseStudy
+# HappyRobot_CaseStudy
 
-# API for HappyRobot Use Case Flow
+## API for HappyRobot Use Case Flow
 
-# To access HappyRobot Deployment:
+## To access HappyRobot Deployment:
 
 Prerequisites:
   - EC2 instance running Amazon Linux 2 or 2023
