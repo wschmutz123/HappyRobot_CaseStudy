@@ -40,7 +40,7 @@ Prerequisites:
   - Make start.sh executable and start the FastAPI app with PM2
   - Configure PM2 to auto-start on server reboot
 
-6. Access the API:
+5. Access the API:
    
   URL: https://willhappyrobot.ddns.net:3001 (or EC2 public IP)
 
@@ -51,4 +51,13 @@ Prerequisites:
   ```bash
   curl -H "X-API-Key: <YOUR_SECRET_KEY>" \
   "https://willhappyrobot.ddns.net:3001/api/search_loads?origin=Dallas"
+
+```bash
+Notes:
+
+  Ensure ports 3001 (API) and 80 (HTTP for Let's Encrypt) are open in your EC2 security group.
+  
+  Recommended to use a domain with Let’s Encrypt for HTTPS; self-signed certificates are suitable   for testing only.
+  
+  The deployment script is idempotent, so running it multiple times won’t break your app.
 
