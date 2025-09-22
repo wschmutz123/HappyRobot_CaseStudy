@@ -54,10 +54,7 @@ Prerequisites:
   ```
 
 Notes:
-
-  Ensure ports 3001 (API) and 80 (HTTP for Let's Encrypt) are open in your EC2 security group.
-  
-  Recommended to use a domain with Let’s Encrypt for HTTPS; self-signed certificates are suitable   for testing only.
-  
-  The deployment script is idempotent, so running it multiple times won’t break your app.
+  - Ensure ports 3001 (API) and 80 (HTTP for Let's Encrypt) are open in your EC2 security group.
+  - Recommended to use a domain with Let’s Encrypt for HTTPS; self-signed certificates are suitable   for testing only.
+  - The deployment script is idempotent, so running it multiple times won’t break your app.
 
