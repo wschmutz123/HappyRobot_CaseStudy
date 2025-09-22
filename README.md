@@ -10,17 +10,25 @@ Prerequisites:
   - Domain pointing to your EC2 (e.g., willhappyrobot.ddns.net)
 
 Make deploy.sh executable:
+
   `cd ~/HappyRobot_CaseStudy/Backend`
+  
   `chmod +x deploy.sh`
 
 Before running the deployment script, you **must create a `.env` file** in the `Backend` directory containing your API key:
+
 1. Create `.env` in the `Backend` directory:
+   
 `cd ~/HappyRobot_CaseStudy/Backend`
+
 `touch .env`
+
 Add your REST API key to .env:
+
 `echo "REST_API_KEY=<YOUR_SECRET_KEY>" > .env`
 
 Run the deployment script:
+
   `./deploy.sh`
 
 This will:
