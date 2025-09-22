@@ -32,8 +32,6 @@ Prerequisites:
 
 5. Run the deployment Script:
   `./deploy.sh`
-
-  `cd ~/HappyRobot_CaseStudy/Backend`
   
 This will:
 
