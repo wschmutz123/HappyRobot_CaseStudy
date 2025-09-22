@@ -17,14 +17,15 @@ Prerequisites:
    
 2. Clone the repo:
 
-    `cd ~
-    git clone <YOUR_REPO_URL> HappyRobot_CaseStudy`
+    ```bash
+    cd ~
+    git clone <YOUR_REPO_URL> HappyRobot_CaseStudy```
    
 3. Create .env file with REST API key:
-   `
+   ```bash
    cd ~/HappyRobot_CaseStudy/Backend
    touch .env
-   echo "REST_API_KEY=<YOUR_SECRET_KEY>" > .env`
+   echo "REST_API_KEY=<YOUR_SECRET_KEY>" > .env````
 
 1. Make deploy.sh executable:
 
