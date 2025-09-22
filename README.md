@@ -51,8 +51,8 @@ Prerequisites:
   ```bash
   curl -H "X-API-Key: <YOUR_SECRET_KEY>" \
   "https://willhappyrobot.ddns.net:3001/api/search_loads?origin=Dallas"
+  ```
 
-```bash
 Notes:
 
   Ensure ports 3001 (API) and 80 (HTTP for Let's Encrypt) are open in your EC2 security group.
