@@ -1,6 +1,6 @@
 # HappyRobot_CaseStudy
 
-## API for HappyRobot Use Case Flow
+## FastAPI for HappyRobot Use Case Flow
 
 ## To access HappyRobot Deployment:
 
@@ -9,7 +9,24 @@ Prerequisites:
   - SSH access to the instance
   - Domain pointing to your EC2 (e.g., willhappyrobot.ddns.net)
 
-Make deploy.sh executable:
+### Steps:
+
+1. SSH into your EC2 Instance:
+
+    `ssh -i <YOUR_KEY.pem> ec2-user@<EC2_PUBLIC_IP>`
+   
+2. Clone the repo:
+
+    `cd ~
+    git clone <YOUR_REPO_URL> HappyRobot_CaseStudy`
+   
+3. Create .env file with REST API key:
+   `
+   cd ~/HappyRobot_CaseStudy/Backend
+   touch .env
+   echo "REST_API_KEY=<YOUR_SECRET_KEY>" > .env`
+
+1. Make deploy.sh executable:
 
   `cd ~/HappyRobot_CaseStudy/Backend`
   
