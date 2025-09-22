@@ -33,12 +33,12 @@ Prerequisites:
     chmod +x deploy.sh
     ./deploy.sh
   
-This will:
-
-- Install system dependencies (Python 3, pip, npm, Certbot)
-- Set up Python virtual environment and install dependencies
-- Make start.sh executable and start the FastAPI app with PM2
-- Configure PM2 to auto-start on server reboot
+  This will:
+  
+  - Install system dependencies (Python 3, pip, npm, Certbot)
+  - Set up Python virtual environment and install dependencies
+  - Make start.sh executable and start the FastAPI app with PM2
+  - Configure PM2 to auto-start on server reboot
 
 6. Access the API:
    
