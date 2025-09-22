@@ -34,7 +34,9 @@ Prerequisites:
   `./deploy.sh`
 
   `cd ~/HappyRobot_CaseStudy/Backend`
+  
 This will:
+
 - Install system dependencies (Python 3, pip, git, npm, Certbot)
 - Clone the repository
 - Set up Python virtual environment and install dependencies
