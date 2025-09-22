@@ -7,6 +7,6 @@ if __name__ == "__main__":
         app,  # points to this file
         host="0.0.0.0",
         port=3001,
-        ssl_keyfile="/etc/ssl/private/selfsigned.key",
-        ssl_certfile="/etc/ssl/certs/selfsigned.crt"
+        ssl_certfile="/etc/letsencrypt/live/willhappyrobot.ddns.net/fullchain.pem",
+        ssl_keyfile="/etc/letsencrypt/live/willhappyrobot.ddns.net/privkey.pem"
     )
