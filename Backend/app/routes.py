@@ -85,7 +85,7 @@ def get_loads(origin: Optional[str] = None):
 @router.get("/verify_carrier")
 def api_verify_carrier(mc_number: str) -> bool:
     eligible = verify_carrier(mc_number)
-    return eligible
+    return {"verify": eligible}
 
 # Application entry point
 if __name__ == "__main__":
