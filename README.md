@@ -4,6 +4,10 @@
 
 ## To access HappyRobot Deployment:
 
+  - Go to `https://willhappyrobot.ddns.net:3001`
+
+## To Reproduce Deployment:
+
 Prerequisites:
   - EC2 instance running Amazon Linux 2 or 2023
   - SSH access to the instance
