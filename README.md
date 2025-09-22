@@ -28,18 +28,14 @@ Prerequisites:
    touch .env
    echo "REST_API_KEY=<YOUR_SECRET_KEY>" > .env
 
-5. Make deploy.sh executable in HappyRobot Directory
-   
-  `chmod +x deploy.sh`
-
-7. Run the deployment Script:
-   
-  `./deploy.sh`
+4. Make deploy.sh executable and run the deployment Script:
+   ```bash
+    chmod +x deploy.sh
+    ./deploy.sh
   
 This will:
 
-- Install system dependencies (Python 3, pip, git, npm, Certbot)
-- Clone the repository
+- Install system dependencies (Python 3, pip, npm, Certbot)
 - Set up Python virtual environment and install dependencies
 - Make start.sh executable and start the FastAPI app with PM2
 - Configure PM2 to auto-start on server reboot
@@ -52,6 +48,7 @@ This will:
 
   Example:
 
-  `curl -H "X-API-Key: <YOUR_SECRET_KEY>" \
-  "https://willhappyrobot.ddns.net:3001/api/search_loads?origin=Dallas"`
+  ```bash
+  curl -H "X-API-Key: <YOUR_SECRET_KEY>" \
+  "https://willhappyrobot.ddns.net:3001/api/search_loads?origin=Dallas"
 
