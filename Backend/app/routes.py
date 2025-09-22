@@ -14,6 +14,7 @@ load_dotenv()
 # Define the name of the header where the API key will be sent
 API_KEY_NAME = "X-API-Key"
 API_KEY = os.getenv("REST_API_KEY")
+WEB_TOKEN = os.getenv("WEB_TOKEN")
 
 api_key_header = APIKeyHeader(name=API_KEY_NAME, auto_error=False)
 
@@ -45,26 +46,34 @@ def search_loads(origin: Optional[str] = None):
     return results
   
 def verify_carrier(mc_number: str) -> bool:
-    url = f"https://safer.fmcsa.dot.gov/query.asp?query_type=queryCarrierSnapshot&query_param=MCNumber&query={mc_number}&displayformat=json"
+    url = (
+        f"https://mobile.fmcsa.dot.gov/qc/services/carriers/"
+        f"{mc_number}?webKey={WEB_TOKEN}"
+    )
+
+    headers = {
+        "User-Agent": "Mozilla/5.0"
+    }
+    
     try:
-        response = requests.get(url, timeout=5)
-        response.raise_for_status()
-        data = response.json()
-        print(data)
-        # Adjust based on actual FMCSA API response structure
-        return data.get("eligible_to_work", False)
+        response = requests.get(url, headers=headers)
+        if response.status_code == 200:
+            try:
+                data = response.json()
+            except ValueError:
+                return False
+
+            content = data.get("content")
+            if isinstance(content, dict):
+                return True
+            else:
+                return False
+        else:
+            print(f"Error {response.status_code}: {response.text}")
+            return False
     except Exception as e:
         print(f"FMCSA API error: {e}")
         return False
-
-def negotiate_rate(listed_rate: float, counter_offers: List[float]) -> float:
-    agreed_rate = listed_rate
-    for i, offer in enumerate(counter_offers[:3]):
-        if offer >= listed_rate * 0.9:
-            agreed_rate = offer
-        else:
-            agreed_rate *= 0.95  # AI makes new offer
-    return agreed_rate
 
 @router.get("/search_loads")
 def get_loads(origin: Optional[str] = None):
@@ -76,35 +85,7 @@ def get_loads(origin: Optional[str] = None):
 @router.get("/verify_carrier")
 def api_verify_carrier(mc_number: str) -> bool:
     eligible = verify_carrier(mc_number)
-    return {"mc_number": mc_number, "eligible": eligible}
-  
-@router.post("/negotiate_rate")
-def api_negotiate_rate(listed_rate: float, counter_offers: List[float]):
-    agreed_rate = negotiate_rate(listed_rate, counter_offers)
-    return {"listed_rate": listed_rate, "counter_offers": counter_offers, "agreed_rate": agreed_rate}
-  
-
-@router.post("/find_and_negotiate")
-def find_and_negotiate(mc_number: str, origin: Optional[str] = None, destination: Optional[str] = None, counter_offers: Optional[List[float]] = []):
-    # 1. Verify carrier
-    if not verify_carrier(mc_number):
-        raise HTTPException(status_code=403, detail="Carrier not eligible")
-
-    # 2. Search loads
-    loads = search_loads(origin, destination)
-    if not loads:
-        raise HTTPException(status_code=404, detail="No loads found")
-
-    # 3. Negotiate rate for the first load (example)
-    first_load = loads[0]
-    agreed_rate = negotiate_rate(first_load['loadboard_rate'], counter_offers)
-
-    # Return all relevant info
-    return {
-        "carrier_mc": mc_number,
-        "load": first_load,
-        "agreed_rate": agreed_rate
-    }
+    return eligible
 
 # Application entry point
 if __name__ == "__main__":
