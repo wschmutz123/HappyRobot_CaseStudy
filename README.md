@@ -26,16 +26,16 @@ Prerequisites:
     cd ~
     git clone https://github.com/wschmutz123/HappyRobot_CaseStudy.git
     cd HappyRobot_CaseStudy
-    mkdir -p certs
+    mkdir -p Backend/certs
     sudo amazon-linux-extras enable epel
     sudo yum install -y certbot
     
-    # Replace example.com with your domain if you want a different one
+    # Replace willhappyrobot.ddns.net with your domain if you want a different one
     sudo certbot certonly --standalone -d willhappyrobot.ddns.net
 
-    # Replace if you have a different domain
-    cp /etc/letsencrypt/live/willhappyrobot.ddns.net/fullchain.pem certs/fullchain.pem
-    cp /etc/letsencrypt/live/willhappyrobot.ddns.net/privkey.pem certs/privkey.pem
+    # Replace domain if you have a different domain
+    cp /etc/letsencrypt/live/willhappyrobot.ddns.net/fullchain.pem Backend/certs/fullchain.pem
+    cp /etc/letsencrypt/live/willhappyrobot.ddns.net/privkey.pem Backend/certs/privkey.pem
    
 3. Create .env file with REST API key and WEB TOKEN for your FMCSA api:
    
