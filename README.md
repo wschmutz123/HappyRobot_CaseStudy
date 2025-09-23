@@ -19,18 +19,31 @@ Prerequisites:
 
     `ssh -i <YOUR_KEY.pem> ec2-user@<EC2_PUBLIC_IP>`
    
-2. Clone the repo:
+2. Install Git and Clone the repo and add Certs for Lets Encrypt:
 
     ```bash
+    sudo yum install -y git
     cd ~
-    git clone <YOUR_REPO_URL> HappyRobot_CaseStudy
+    git clone https://github.com/wschmutz123/HappyRobot_CaseStudy.git
+    cd HappyRobot_CaseStudy
+    mkdir -p certs
+    sudo amazon-linux-extras enable epel
+    sudo yum install -y certbot
+    
+    # Replace example.com with your domain if you want a different one
+    sudo certbot certonly --standalone -d willhappyrobot.ddns.net
+
+    # Replace if you have a different domain
+    cp /etc/letsencrypt/live/willhappyrobot.ddns.net/fullchain.pem certs/fullchain.pem
+    cp /etc/letsencrypt/live/willhappyrobot.ddns.net/privkey.pem certs/privkey.pem
    
-3. Create .env file with REST API key:
+3. Create .env file with REST API key and WEB TOKEN for your FMCSA api:
    
    ```bash
    cd ~/HappyRobot_CaseStudy/Backend
    touch .env
    echo "REST_API_KEY=<YOUR_SECRET_KEY>" > .env
+   echo "WEB_TOKEN=<YOUR_WEB_TOKEN>" > .env
 
 4. Make deploy.sh executable and run the deployment Script:
    ```bash
@@ -46,7 +59,7 @@ Prerequisites:
 
 5. Access the API:
    
-  URL: https://willhappyrobot.ddns.net:3001 (or EC2 public IP)
+  URL: https://willhappyrobot.ddns.net:3001 (or your specific domain name)
 
   API Key Header: X-API-Key: <YOUR_SECRET_KEY>
 
@@ -59,6 +72,6 @@ Prerequisites:
 
 Notes:
   - Ensure ports 3001 (API) and 80 (HTTP for Let's Encrypt) are open in your EC2 security group.
-  - Recommended to use a domain with Let’s Encrypt for HTTPS; self-signed certificates are suitable   for testing only.
+  - Recommended to use a domain with Let’s Encrypt for HTTPS; self-signed certificates are suitable for testing only.
   - The deployment script is idempotent, so running it multiple times won’t break your app.
 
