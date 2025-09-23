@@ -1,7 +1,7 @@
 #!/bin/bash
 # Install system dependencies
 sudo amazon-linux-extras enable epel
-sudo yum install -y python3 python3-pip npm certbot
+sudo yum install -y python3 python3-pip npm
 
 cd ~/HappyRobot_CaseStudy/Backend
 
