@@ -85,8 +85,16 @@ Prerequisites:
     docker-compose run --rm certbot certonly --webroot \
     --webroot-path=/var/www/certbot \
     -d willhappyrobot.ddns.net
+
+    # Make ec2-user the owner
+    sudo chown -R ec2-user:ec2-user ./certbot/conf
+
+    # Ensure read permission for Docker
+    chmod -R 755 ./certbot/conf
   ```
 
+  Make sure you see certbot directory created in the Backend folder.
+  
   After success, reload Nginx with HTTPS:
 
   ```bash
