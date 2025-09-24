@@ -1,10 +1,10 @@
 # HappyRobot_CaseStudy
 
-## FastAPI for HappyRobot Use Case Flow
+## FastAPI Deployment on AWS EC2 with docker-compose, Nginx, and Let’s Encrypt
 
 ## To access HappyRobot Deployment:
 
-  - Go to `https://willhappyrobot.ddns.net:3001`
+  - Go to `https://willhappyrobot.ddns.net`
 
 ## To Reproduce Deployment:
 
@@ -12,32 +12,44 @@ Prerequisites:
   - EC2 instance running Amazon Linux 2 or 2023
   - SSH access to the instance
   - Domain pointing to your EC2 (e.g., willhappyrobot.ddns.net)
+  - Security group rules:
+      - Allow 80 (HTTP), Allow 443 (HTTPS), Allow 22 (SSH)
 
 ### Steps:
 
-1. SSH into your EC2 Instance:
-
-    `ssh -i <YOUR_KEY.pem> ec2-user@<EC2_PUBLIC_IP>`
-   
-2. Install Git and Clone the repo and add Certs for Lets Encrypt:
+1. SSH into the instance, Install git, and Clone the Repo:
+   `ssh -i <YOUR_KEY.pem> ec2-user@<EC2_PUBLIC_IP>`
 
     ```bash
+    # Update system
+    sudo yum update -y
     sudo yum install -y git
     cd ~
     git clone https://github.com/wschmutz123/HappyRobot_CaseStudy.git
-    cd HappyRobot_CaseStudy
-    mkdir -p Backend/certs
-    sudo amazon-linux-extras enable epel
-    sudo yum install -y certbot
-    
-    # Replace willhappyrobot.ddns.net with your domain if you want a different one
-    sudo certbot certonly --standalone -d willhappyrobot.ddns.net
-
-    # Replace domain if you have a different domain
-    cp /etc/letsencrypt/live/willhappyrobot.ddns.net/fullchain.pem Backend/certs/fullchain.pem
-    cp /etc/letsencrypt/live/willhappyrobot.ddns.net/privkey.pem Backend/certs/privkey.pem
+    ```
+2. Install Docker & docker-compose (v1):
    
-3. Create .env file with REST API key and WEB TOKEN for your FMCSA api:
+   ```bash
+    
+    # Install Docker
+    sudo yum install -y docker
+    sudo systemctl enable --now docker
+    
+    # Add ec2-user to docker group
+    sudo usermod -aG docker ec2-user
+    exec bash
+    
+    # Install docker-compose v1 (standalone)
+    sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" \
+      -o /usr/local/bin/docker-compose
+    sudo chmod +x /usr/local/bin/docker-compose
+    
+    # Verify installation
+    docker --version
+    docker-compose --version
+   ```
+   
+6. Create .env file with REST API key and WEB TOKEN for your FMCSA api:
    
    ```bash
    cd ~/HappyRobot_CaseStudy/Backend
@@ -45,7 +57,7 @@ Prerequisites:
    echo "REST_API_KEY=<YOUR_SECRET_KEY>" > .env
    echo "WEB_TOKEN=<YOUR_WEB_TOKEN>" > .env
 
-4. Make deploy.sh executable and run the deployment Script:
+7. Make deploy.sh executable and run the deployment Script:
    ```bash
     chmod +x deploy.sh
     ./deploy.sh
