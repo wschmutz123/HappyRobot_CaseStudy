@@ -31,7 +31,7 @@ router = APIRouter(dependencies=[Depends(get_api_key)])
 
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-CSV_FILE = os.path.join(BASE_DIR, "..", "..", "Data", "loads.csv")
+CSV_FILE = os.path.join(BASE_DIR, "..", "Data", "loads.csv")
 
 def search_loads(origin: Optional[str] = None):
     # Read CSV into a DataFrame

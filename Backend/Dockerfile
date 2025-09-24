@@ -15,6 +15,7 @@ RUN pip install --no-cache-dir -r /app/requirements.txt
 
 # Copy app code
 COPY . /app
+COPY ./Data /app/Data
 
 # Expose FastAPI port
 EXPOSE 3001
