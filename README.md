@@ -70,9 +70,10 @@ Prerequisites:
       │── requirements.txt
       |── main.py
 
-5. (Optional) Update your nginx.conf file
+5. (Optional) Update your nginx.conf and docker-compose.yml file
 
     - Update your nginx conf to change the domain name for server_name (twice), ssl_certificate, and ssl_certificate_key
+    - Update the entrypoint in docker-compose.yml to your domain and your email 
 
 6. Generate SSL certificates:
    Start Nginx first (HTTP only):
